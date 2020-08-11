@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>REST</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="row" style="padding-top: 50px">
+  <div class="container">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+      <table class="table">
+        <tr>
+          <th colspan="7">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#insertmodal">Add Employee</button>
+            <div class="modal fade" id="insertmodal" role="dialog">
+              <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Add Employee</h4>
+                  </div>
+                  <div class="modal-body">
+                    <form action="{{url_for('register')}}" method="POST">
+                       First Name : <input type="text" name="first_name" required class="form-control"><br>
+                       Last Name : <input type="text" name="last_name" required class="form-control"><br>
+                       Date Of Birth: <input type="date" name="birth_date" required class="form-control"><br>
+                       Gender :<br>
+                       <input type="radio" name="gender" value="Male"> <label for="male">Male</label><br>
+                       <input type="radio" name="gender" value="Female"> <label for="female">Female</label><br>
+                        Hire Date : <input type="date" name="hire_date" required class="form-control"><br>
+                        <button type="submit" class="btn btn-primary">ADD </button>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </th>
+          </tr>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Date Of Birth</th>
+            <th>Gender</th>
+            <th>Hire Date</th>
+            <th>Delete</th>
+            <th>Update</th>
+          </tr>
+          {% for row in emp %}
+          <tr>
+            <td>{{row.first_name}}</td>
+            <td>{{row.last_name}}</td>
+            <td>{{row.birth_date}}</td>
+            <td>{{row.gender}}</td>
+            <td>{{row.hire_date}}</td>
+            <td>
+              <a href="/delete/{{ row.emp_no }}">
+                <button class="btn btn-danger">Delete</button>
+              </a>
+            </td>
+            <td>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal{{ row.emp_no }}">Update</button>
+              <div class="modal fade" id="myModal{{ row.emp_no }}" role="dialog">
+                <div class="modal-dialog">
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Update User</h4>
+                    </div>
+                    <div class="modal-body">
+                      <form action="{{url_for('update')}}" method="POST">
+                        <input type="hidden" name="emp_no" value="{{row.emp_no}}">
+                        First Name : <input type="text" name="first_name" required value="{{row.first_name}}" class="form-control"><br>
+                        Last Name : <input type="text" name="last_name" required value="{{row.last_name}}" class="form-control"><br>
+
+                        Date Of Birth: <input type="date" name="birth_date" required value="{{row.birth_date}}" class="form-control"><br>
+
+                        Gender : <br>
+                        <input type="radio" id="Male" name="gender" value="Male" > <label for="male">Male</label><br>
+                        <input type="radio" id="Female" name="gender" value="Female"> <label for="female">Female</label><br>
+
+                        Hire Date: <input type="date" name="hire_date" required value="{{row.hire_date}}" class="form-control"><br>
+                        <center>
+                          <button type="submit" class="btn btn-primary">Update </button>
+                        </center>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+      <div class="col-lg-2"></div>
+    </div>
+  </div>
+</body>
+</html>
