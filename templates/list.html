@@ -85,10 +85,12 @@
 
                         Date Of Birth: <input type="date" name="birth_date" required value="{{row.birth_date}}" class="form-control"><br>
 
-                        Gender : <br>
-                        <input type="radio" id="Male" name="gender" value="Male" > <label for="male">Male</label><br>
-                        <input type="radio" id="Female" name="gender" value="Female"> <label for="female">Female</label><br>
-
+                        Gender : <select name="gender" class="form-control"> 
+                          <option value="{{row.gender}}">{{row.gender}}</option>
+                          <option>__Select Gender__</option>
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                        </select><br>
                         Hire Date: <input type="date" name="hire_date" required value="{{row.hire_date}}" class="form-control"><br>
                         <center>
                           <button type="submit" class="btn btn-primary">Update </button>
